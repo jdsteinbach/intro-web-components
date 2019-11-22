@@ -1,0 +1,32 @@
+.colophon {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: fixed;
+  right: 20px;
+  bottom: 20px;
+  left: 20px;
+  z-index: 1;
+
+  &::after {
+    content: '';
+    display: block;
+    width: 15vw;
+  }
+}
+
+.colophon__logo {
+  width: 15vw;
+  height: 5vh;
+  object-fit: contain;
+  object-position: left center;
+}
+
+.colophon__link {
+  --font-mono: 1;
+
+  opacity: .75;
+  font-family: $codeFont;
+  font-size: 4vmin;
+  font-style: italic;
+}

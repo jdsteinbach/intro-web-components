@@ -1,0 +1,349 @@
+/**
+ * Black theme for reveal.js. This is the opposite of the 'white' theme.
+ *
+ * Copyright (C) 2015 Hakim El Hattab, http://hakim.se
+ */
+
+
+// Default mixins and settings -----------------
+@import "css/theme/template/mixins";
+@import "css/theme/template/settings";
+// ---------------------------------------------
+
+// Override theme settings (see ../template/settings.scss)
+$mainColor: #ececec;
+$headingColor: mix(#e04e39, $mainColor, 75%);
+
+$backgroundColor: #131313;
+$backgroundColorAlt: rgba($headingColor, .25);
+$shadowColor: #2c3e50;
+$shadowColorAlt: #e04e39;
+
+$mainFontSize: 2rem;
+$mainFont: $default-font, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+$codeFont: $default-font, SF Mono, Operator Mono, Input Code, Source Code Pro, monospace;
+$headingFont: $mainFont;
+$headingTextShadow: none;
+$headingLetterSpacing: normal;
+$headingTextTransform: uppercase;
+$headingFontWeight: 700;
+$linkColor: lighten($shadowColor, 30%);
+$linkColorHover: lighten($shadowColorAlt, 20%);
+$selectionBackgroundColor: lighten($linkColor, 20%);
+
+$heading1Size: 2em;
+$heading2Size: 1.75em;
+$heading3Size: 1.5em;
+$heading4Size: 1.25em;
+
+$fontWeightLight: 400;
+$fontWeightNormal: 550;
+$fontWeightBold: 700;
+
+$blockMargin: $mainFontSize / 1.5;
+$headingMargin: 0 0 $blockMargin;
+
+$accentColor: mix($headingColor, $mainColor, 45%);
+$codeColor: mix($shadowColor, $mainColor, 25%);
+
+* {
+  font-variation-settings:
+    "MONO" var(--font-mono, 0),
+    "CASL" var(--font-casl, 0),
+    "wght" var(--font-wght, #{$fontWeightLight}),
+    "slnt" var(--font-slnt, 0),
+    "ital" var(--font-ital, 0);
+}
+
+section.has-light-background {
+  &,
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    color: $backgroundColor;
+  }
+}
+
+body {
+  font-family: $mainFont !important;
+}
+
+.reveal section {
+  // OVERLAY FIX
+  &[aria-hidden="true"],
+  &[aria-hidden="true"] * {
+    pointer-events: none !important;
+  }
+
+  --font-wght: #{$fontWeightLight};
+
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: antialiased;
+  font-feature-settings: liga frac ordn;
+  hyphens: none;
+
+  h1,
+  h2,
+  h3 {
+    --text-shadow-color: #{$shadowColor};
+
+    text-shadow: .5px .5px 0 var(--text-shadow-color),
+                 1px 1px 0 var(--text-shadow-color),
+                 1.5px 1.5px 0 var(--text-shadow-color),
+                 2px 2px 0 var(--text-shadow-color);
+  }
+
+  h1 {
+    --font-wght: #{$fontWeightBold};
+
+    margin: 0;
+  }
+
+  h2 {
+    --font-wght: #{$fontWeightNormal};
+    --text-shadow-color: #{$shadowColorAlt};
+
+    color: $mainColor;
+
+    em {
+      --font-wght: #{$fontWeightBold};
+      --text-shadow-color: #{$shadowColor};
+
+      color: $headingColor;
+    }
+
+    &.big {
+      font-size: $heading1Size;
+    }
+  }
+
+  h1,
+  h3 {
+    em {
+      --font-wght: #{$fontWeightBold};
+      --text-shadow-color: #{$shadowColorAlt};
+
+      color: $mainColor;
+    }
+  }
+
+  h3 {
+    --font-wght: #{$fontWeightNormal};
+
+    &.big {
+      font-size: $heading2Size;
+    }
+  }
+
+  h4 {
+    font-size: $heading4Size;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    & + p,
+    & + ul,
+    & + pre {
+      margin-top: 1em;
+    }
+  }
+
+  p,
+  li {
+    --font-wght: #{$fontWeightLight};
+
+    margin-left: auto;
+    margin-right: auto;
+    width: 20em;
+    max-width: 100%;
+    text-align: center;
+
+    em {
+      --font-wght: #{$fontWeightNormal};
+
+      color: $accentColor;
+    }
+  }
+
+  li {
+    margin: $blockMargin 0;
+    display: block;
+    text-align: left;
+
+    &:first-child {
+      margin-top: 0;
+    }
+  }
+
+  ul {
+    margin: 0;
+  }
+
+  blockquote {
+    padding: .5em;
+    background-color: $backgroundColorAlt;
+  }
+
+  blockquote > p {
+    font-size: $heading1Size;
+    text-shadow: .5px .5px 0 $shadowColor,
+                 1px 1px 0 $shadowColor;
+  }
+
+  .big-p {
+    --font-wght: #{$fontWeightBold};
+
+    font-size: $heading1Size;
+    text-transform: uppercase;
+    text-align: center;
+  }
+
+  .output {
+    background-color: rgba($mainColor, .1);
+    text-align: left;
+    font-size: .8em;
+
+    > * {
+      background-color: $shadowColor;
+    }
+  }
+
+  code {
+    font-family: $codeFont;
+    color: $codeColor;
+    font-weight: 400;
+
+    &::before,
+    &::after {
+      content: '`';
+    }
+
+    mark {
+      background-color: transparent;
+    }
+  }
+
+  h1 code,
+  h2 code,
+  h3 code,
+  h4 code {
+    --font-wght: #{$fontWeightBold};
+
+    color: inherit;
+  }
+
+  pre {
+    font-size: 1em;
+
+    &.small {
+      font-size: .825em;
+    }
+
+    &.tiny {
+      font-size: .7em;
+    }
+
+    code {
+      max-height: 100%;
+      font-size: 75%;
+      background-color: rgba($mainColor, .05);
+
+      &::before,
+      &::after {
+        display: none;
+      }
+    }
+  }
+
+  table {
+    th {
+      vertical-align: bottom;
+    }
+    th,
+    td {
+      text-align: center;
+    }
+  }
+
+  .t-emphasis {
+    --font-wght: #{$fontWeightBold};
+
+    font-family: $codeFont;
+    color: $accentColor;
+    border-bottom: .125em solid $linkColor;
+  }
+
+  .t-bold {
+    --font-wght: #{$fontWeightBold};
+  }
+
+  .striped {
+    padding: .125em;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    background-image: repeating-linear-gradient(
+      45deg,
+      mix($backgroundColor, $shadowColor, 61.8%) 0,
+      mix($backgroundColor, $shadowColor, 61.8%) 10px,
+      $backgroundColor 10px,
+      $backgroundColor 20px
+    );
+  }
+
+  .center {
+    text-align: center;
+  }
+
+  .hidden-label {
+    display: none;
+  }
+
+  .invisible-hr {
+    border: 0;
+    height: 0;
+    background: transparent;
+  }
+
+  .d-block {
+    display: block;
+  }
+
+  .mb-1 {
+    margin-bottom: $blockMargin;
+  }
+
+  .mb-2 {
+    margin-bottom: $blockMargin * 2;
+  }
+
+  .bg-light {
+    background: rgba($mainColor, .7);
+    backdrop-filter: blur(5px);
+  }
+
+  .logo--dockyard {
+    margin-left: 1ch;
+    max-width: 1em;
+    max-height: 1em;
+    display: inline-block;
+    vertical-align: middle;
+  }
+}
+
+iframe {
+  border-width: 0;
+}
+
+// Theme template ------------------------------
+@import "css/theme/template/theme";
+
+// ---------------------------------------------
