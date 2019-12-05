@@ -38,7 +38,7 @@ $heading4Size: 1.25em;
 
 $fontWeightLight: 400;
 $fontWeightNormal: 550;
-$fontWeightBold: 700;
+$fontWeightBold: 800;
 
 $blockMargin: $mainFontSize / 1.5;
 $headingMargin: 0 0 $blockMargin;
@@ -49,7 +49,7 @@ $codeColor: mix($shadowColor, $mainColor, 25%);
 * {
   font-variation-settings:
     "MONO" var(--font-mono, 0),
-    "CASL" var(--font-casl, 0),
+    "CASL" var(--font-casl, .6),
     "wght" var(--font-wght, #{$fontWeightLight}),
     "slnt" var(--font-slnt, 0),
     "ital" var(--font-ital, 0);
@@ -88,8 +88,12 @@ body {
   h1,
   h2,
   h3 {
+    --font-casl: 0;
     --text-shadow-color: #{$shadowColor};
 
+    margin-right: auto;
+    margin-left: auto;
+    max-width: 40rem;
     text-shadow: .5px .5px 0 var(--text-shadow-color),
                  1px 1px 0 var(--text-shadow-color),
                  1.5px 1.5px 0 var(--text-shadow-color),
@@ -99,7 +103,7 @@ body {
   h1 {
     --font-wght: #{$fontWeightBold};
 
-    margin: 0;
+    margin: 0 auto;
   }
 
   h2 {
@@ -156,6 +160,20 @@ body {
   }
 
   p,
+  ul,
+  pre {
+    & + h1,
+    & + h2,
+    & + h3,
+    & + h4,
+    & + h5,
+    & + h6 {
+      margin-top: 1em;
+    }
+  }
+
+
+  p,
   li {
     --font-wght: #{$fontWeightLight};
 
@@ -169,6 +187,13 @@ body {
       --font-wght: #{$fontWeightNormal};
 
       color: $accentColor;
+
+      &:first-child:last-child {
+        --font-wght: inherit;
+        --font-slnt: -10;
+
+        font-size: 75%;
+      }
     }
   }
 
@@ -184,6 +209,10 @@ body {
 
   ul {
     margin: 0;
+  }
+
+  a {
+    text-decoration: underline;
   }
 
   blockquote {
@@ -216,13 +245,16 @@ body {
   }
 
   code {
-    font-family: $codeFont;
+    --font-mono: 1;
+    --font-casl: 0;
+
     color: $codeColor;
     font-weight: 400;
 
     &::before,
     &::after {
       content: '`';
+      opacity: 0.5;
     }
 
     mark {
@@ -234,13 +266,25 @@ body {
   h2 code,
   h3 code,
   h4 code {
-    --font-wght: #{$fontWeightBold};
+    --font-wght: #{$fontWeightLight};
 
     color: inherit;
   }
 
   pre {
+    margin: $blockMargin auto;
+    display: inline-block;
+    width: auto;
+    max-width: 100%;
     font-size: 1em;
+
+    &:first-child {
+      margin-top: 0;
+    }
+
+    &:last-child {
+      margin-bottom: 0;
+    }
 
     &.small {
       font-size: .825em;
@@ -274,8 +318,9 @@ body {
 
   .t-emphasis {
     --font-wght: #{$fontWeightBold};
+    --font-mono: 1;
+    --font-casl: 0;
 
-    font-family: $codeFont;
     color: $accentColor;
     border-bottom: .125em solid $linkColor;
   }

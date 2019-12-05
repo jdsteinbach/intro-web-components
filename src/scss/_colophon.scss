@@ -24,9 +24,10 @@
 
 .colophon__link {
   --font-mono: 1;
+  --font-casl: 0;
+  --font-slnt: -10;
 
   opacity: .75;
-  font-family: $codeFont;
   font-size: 4vmin;
-  font-style: italic;
+  text-decoration: underline;
 }
