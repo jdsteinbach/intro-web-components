@@ -58,7 +58,7 @@ const PROD = !(yargs.argv.dev)
  * Set up file paths
  */
 const _srcDir = `./src`
-const _distDir = `./docs`
+const _distDir = `./dist`
 const _devDir = `./dev`
 const _buildDir = PROD ? _distDir : _devDir
 
