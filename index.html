@@ -1,0 +1,286 @@
+<!doctype html>
+<html class="no-js" lang="">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>Intro to Web Components</title>
+    <meta name="description" content="Creating Custom Elements">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="./style.min.css">
+  </head>
+  <body>
+    <div class="reveal">
+      <div class="slides">
+        <section data-filename="undefined"><section data-filename="0 Title"><h1 class="mb-1">Intro to Web Components</h1>
+<h2>Creating Custom Elements</h2>
+</section></section><section data-filename="undefined"><section data-filename="0 Building"><h2>Building Web Components</h2>
+</section><section data-filename="10 Libraries"><h3>Build Tools</h3>
+<p><a href="https://stenciljs.com/">Stencil.js</a></p>
+<p><a href="https://lit-element.polymer-project.org/">LitElement</a></p>
+</section><section data-filename="20 Stencil"><h3>Installing Stencil</h3>
+<pre><code class="language-sh">npm install @stencil/core
+</code></pre>
+</section><section data-filename="30 Stencil Init"><h3>Stencil Init</h3>
+<pre><code class="language-sh">npm init stencil
+</code></pre>
+</section></section><section data-filename="undefined"><section data-filename="0 Decorators"><h2>Stencil Decorators</h2>
+</section><section data-filename="20 Props"><h3><code>@Prop()</code></h3>
+</section><section data-filename="30 Props Demo"><pre><code class="language-js">import { Component, h, Prop } from '@stencil/core';
+
+@Component({
+  tag: 'say-hello'
+})
+export class SayHello {
+  @Prop() name: string;
+
+  render() {
+    return &lt;p&gt;Hello, World! I'm {this.name}.&lt;/p&gt;;
+  }
+}
+</code></pre>
+</section><section data-filename="40 Props Demo 2"><pre><code class="language-html">&lt;say-hello name=&quot;Carla&quot;&gt;&lt;/say-hello&gt;
+</code></pre>
+<pre><code class="language-html">&lt;say-hello name=&quot;Carla&quot;&gt;
+  &lt;p&gt;Hello, World! I'm Carla.&lt;/p&gt;
+&lt;/say-hello&gt;
+</code></pre>
+</section><section data-filename="50 State"><h3><code>@State()</code></h3>
+</section><section data-filename="60 State Demo"><pre><code class="language-js">import { Component, h, State } from '@stencil/core';
+
+@Component({
+  tag: 'click-counter'
+})
+export class ClickCounter {
+  //...
+</code></pre>
+</section><section data-filename="70 State Demo 2"><pre><code class="language-js">  //...
+  @State() count = 0;
+
+  private incrementCount() {
+    this.count++;
+  }
+  //...
+</code></pre>
+</section><section data-filename="80 State Demo 3"><pre><code class="language-js">  //...
+  render() {
+    return (
+      &lt;div&gt;
+        &lt;p&gt;{this.count}&lt;/p&gt;
+        &lt;button
+          type=&quot;button&quot;
+          onClick={() =&gt; this.incrementCount()}
+        &gt;Plus 1&lt;/button&gt;
+      &lt;/div&gt;
+    );
+  }
+}
+</code></pre>
+</section><section data-filename="90 Watch"><h3><code>@Watch()</code></h3>
+</section><section data-filename="100 Watch Demo"><pre><code class="language-js">import { Component, h, Prop, Watch } from '@stencil/core';
+
+@Component({
+  tag: 'say-hello'
+})
+export class SayHello {
+  @Prop() name: string;
+
+  @Watch('name')
+  updateName(newValue, oldValue) {
+    // Fire name-related event, perhaps...
+  }
+  //...
+</code></pre>
+</section><section data-filename="110 Watch Demo 2"><pre><code class="language-js">  //...
+  render() {
+    return &lt;p&gt;Hello, World! I'm {this.name}.&lt;/p&gt;;
+  }
+}
+</code></pre>
+</section><section data-filename="120 Events"><h3><code>@Event()</code><br><code>@Listen()</code></h3>
+</section><section data-filename="130 Events Demo"><pre><code class="language-js">import { Component, Event, EventEmitter, h } from '@stencil/core';
+
+@Component({
+  tag: 'modal-trigger'
+})
+export class ModalTrigger {
+  // ..
+</code></pre>
+</section><section data-filename="140 Events Demo 2"><pre><code class="language-js">  //...
+  @Event() openModal!: EventEmitter;
+
+  private triggerClick() {
+    this.openModal.emit();
+  }
+  //...
+</code></pre>
+</section><section data-filename="150 Events Demo 3"><pre><code class="language-js">  //...
+  render() {
+    return (
+      &lt;button onClick={() =&gt; this.triggerClick()}&gt;
+        &lt;slot /&gt;
+      &lt;/button&gt;
+    );
+  }
+}
+</code></pre>
+</section><section data-filename="160 Events Demo 4"><pre><code class="language-js">import { Component, h, Listen, State } from '@stencil/core';
+
+@Component({
+  tag: 'modal-window'
+})
+export class ModalWindow {
+  // ..
+</code></pre>
+</section><section data-filename="170 Events Demo 5"><pre><code class="language-js">  //...
+  @State() isOpen = false;
+
+  @Listen('openModal')
+  openModalWindow() {
+    this.isOpen = true;
+  }
+  //...
+</code></pre>
+</section><section data-filename="180 Events Demo 6"><pre><code class="language-js">  //...
+  render() {
+    const modalClasses = {
+      modal: true,
+      'modal--open': this.isOpen
+    };
+
+    return (
+      &lt;section class={modalClasses}&gt;
+        &lt;slot /&gt;
+      &lt;/section&gt;
+    );
+  }
+}
+</code></pre>
+</section><section data-filename="190 Events Demo 7"><pre><code class="language-html">&lt;modal-trigger&gt;
+  Log In
+&lt;/modal-trigger&gt;
+
+&lt;modal-window&gt;
+  &lt;form&gt;&lt;/form&gt;
+&lt;/modal-window&gt;
+</code></pre>
+</section></section><section data-filename="undefined"><section data-filename="0 Lifecycle Hooks"><h2>Component Lifecycle Hooks</h2>
+</section><section data-filename="10 Hooks"><p><code>connectedCallback()</code></p>
+<p><em>Every time it’s con­nected to <span class="small-caps">DOM</span>, be­fore <code>componentWillLoad()</code></em></p>
+<p><code>disconnectedCallback()</code></p>
+<p><em>Every time it’s dis­con­nected from <span class="small-caps">DOM</span></em></p>
+</section><section data-filename="20 Hooks 2"><p><code>componentWillLoad()</code></p>
+<p><em>Runs 1x af­ter com­po­nent 1st con­nects to <span class="small-caps">DOM</span></em></p>
+<p><code>componentDidLoad()</code></p>
+<p><em>Called once af­ter fully loaded &amp; 1st <code>render()</code></em></p>
+</section><section data-filename="30 Hooks 3"><p><code>componentWillRender()</code></p>
+<p><em>Before every <code>render()</code></em></p>
+<p><code>componentDidRender()</code></p>
+<p><em>After every <code>render()</code></em></p>
+</section><section data-filename="40 Hooks 4"><p><code>componentWillUpdate()</code></p>
+<p><em>When <code>@Prop()</code> or <code>@State()</code> change (not 1st <code>render()</code>)</em></p>
+<p><code>componentDidUpdate()</code></p>
+<p><em>After up­date <code>render()</code> (but not 1st <code>render()</code>)</em></p>
+</section></section><section data-filename="undefined"><section data-filename="0 Styling"><h2>Styling Web Components</h2>
+</section><section data-filename="10 Shadow DOM"><h3>Shadow <span class="small-caps">DOM</span></h3>
+<p>Completely scoped styles:</p>
+<p><em>Outer styles can’t leak in;</em><br>
+<em>in­ner styles can’t leak out.</em></p>
+</section><section data-filename="20.Shadow Selectors"><h3>Shadow <span class="small-caps">DOM</span> Selectors</h3>
+<ul>
+<li class="fragment"><code>:host</code>, <code>:host()</code></li>
+<li class="fragment"><code>:host-context()</code></li>
+<li class="fragment"><code>::slotted()</code></li>
+<li class="fragment"><code>::part()</code> *</li>
+</ul>
+</section><section data-filename="30 Host"><pre><code class="language-css">:host {
+  display: block;
+}
+
+:host(.is-blue) {
+  color: blue;
+}
+
+:host([aria-hidden=&quot;true&quot;]) {
+  opacity: 0;
+}
+</code></pre>
+</section><section data-filename="40 Host Context"><pre><code class="language-css">:host-context(article) {
+  width: 50%;
+}
+
+:host-context(aside) {
+  width: 100%;
+}
+</code></pre>
+</section><section data-filename="50 Slotted"><pre><code>::slotted(svg) {
+  margin-right: 8px;
+  width: 22px;
+}
+
+::slotted(svg *) {
+  fill: var(--button-fg, #FFF);
+}
+</code></pre>
+</section><section data-filename="60 Part"><pre><code class="language-jsx">render() {
+  return (&lt;div&gt;
+    &lt;button part=&quot;trigger&quot;&gt;Click Me&lt;/button&gt;
+  &lt;/div&gt;);
+}
+</code></pre>
+<pre><code class="language-css">/* Outer CSS allowed through the Shadow DOM */
+custom-element::part(trigger) {
+  color: dodgerblue;
+}
+</code></pre>
+<p><em>* Implemented in Firefox/Chrome, not in Spec</em></p>
+</section><section data-filename="70 Custom Props"><h3>Custom Props</h3>
+<p><span class="small-caps">CSS</span> Custom Properties are the only things al­lowed to af­fect Shadow DOM elements.</p>
+</section><section data-filename="80 Props Demo"><pre><code class="language-jsx">export class CustomButton {
+  render() {
+    return (
+      &lt;button class=&quot;button&quot;&gt;
+        &lt;slot /&gt;
+      &lt;/button&gt;
+    );
+  }
+}
+</code></pre>
+</section><section data-filename="90 Props Demo 2"><pre><code class="language-css">/* Attached to Shadow DOM */
+.button {
+  color: var(--button-fg, #FFF);
+  background: var(--button-bg, #1976D2);
+}
+
+.button:hover {
+  color: var(--button-fg-active, #FFF);
+  background: var(--button-bg-active, #1565C0);
+}
+</code></pre>
+</section><section data-filename="100 Props Demo 3"><pre><code class="language-css">/* Outer CSS: inherited by Shadow DOM */
+.button-container--red {
+  --button-bg: #D32F2F;
+  --button-bg-active: #B71C1C;
+}
+</code></pre>
+</section></section><section data-filename="undefined"><section data-filename="0 Deploying"><h2>Deploying Web Components</h2>
+</section><section data-filename="10 Plain Deploy"><h3><code>npm run build</code></h3>
+<p>Get <code>/dist/*</code> onto your server <br>or into your site build process.</p>
+</section><section data-filename="20 Framework Deploy"><h3>Framework Integration</h3>
+<p>Instructions in <a href="https://stenciljs.com/docs/overview">Stencil Docs</a>:</p>
+<p><a href="https://stenciljs.com/docs/angular">Angular</a> | <a href="https://stenciljs.com/docs/react">React</a> | <a href="https://stenciljs.com/docs/vue">Vue</a> | <a href="https://stenciljs.com/docs/ember">Ember</a></p>
+</section></section><section data-filename="undefined"><section data-filename="0"><h2 class>James Steinbach</h2>
+<h3 class="mb-2">Senior <span class="small-caps">UX</span> Developer<br> at <a rel="noreferrer noopener nofollow" target="_blank" href="https://dockyard.com/blog/authors/james-steinbach">DockYard</a><svg viewbox="0 0 1023 1024" class="logo--dockyard" fill="#fff"><path d="M511.413 0c-282.422 0-511.413 228.991-511.413 512 0 282.422 228.991 511.413 511.413 511.413s511.413-228.991 511.413-511.413c0.587-283.009-228.404-512-511.413-512zM808.514 202.569c0 1.761-1.761 4.697-5.284 8.807-9.394 10.569-110.972 123.89-148.55 162.642 16.44 42.275 16.44 115.083 10.569 185.541-8.22 99.229-21.138 139.156-75.156 169.688s-201.982 34.642-275.963 16.44c-73.982-18.202-83.376-92.183-90.422-95.119-28.771-12.33-25.248-58.128-25.248-58.128 20.55-1.174 40.514 24.073 40.514 24.073 8.22-12.917 32.294-25.248 32.294-25.248 11.156 39.339-12.33 52.844-9.982 58.128 5.872 14.679 37.578 49.908 87.486 24.073 49.908-25.248 51.67-94.532 54.606-179.67s25.248-153.248 98.642-169.688c56.367-12.33 96.881 1.761 115.083 10.569 50.495-36.991 165.578-119.193 175.56-126.239 4.697-2.936 8.22-5.284 10.569-6.459h5.284c0 0 0 0 0 0.587v0z"/><path d="M473.835 577.174c-16.44 22.899-21.138 44.037-31.706 69.284-8.807 19.963-23.486 29.358-34.642 45.798-9.394 14.092 20.55 18.789 28.771 19.376 21.725.587 45.798-10.569 58.716-27.596 17.615-24.073 19.376-46.972 31.706-72.22 6.459-13.505 26.422-39.339 27.596-51.67 2.936-23.486-56.367-16.44-80.44 17.028zM532.55 392.807c-11.743 4.11-18.202 16.44-14.092 28.183 3.523 11.743 16.44 18.202 27.596 14.092 11.743-4.11 18.202-16.44 14.092-28.183-3.523-11.156-16.44-17.615-27.596-14.092z"/></svg></h3>
+<h2 class><code>jdsteinbach</code></h2>
+<h3><a rel="noreferrer noopener nofollow" target="_blank" href="https://twitter.com">Twitter</a> | <a rel="noreferrer noopener nofollow" target="_blank" href="https://github.com/jdsteinbach">Github</a> | <a href="https://jdsteinbach.com">Blog</a></h3>
+</section></section>
+      </div>
+
+      <div class="colophon">
+        <img src="./images/frfe.svg" alt="Front Range Front-End" class="colophon__logo">
+        <a class="colophon__link" href="https://jdsteinbach.com/intro-web-components">jds.li/components</a>
+      </div>
+    </div>
+
+    <script type="text/javascript" src="./index.min.js"></script>
+  </body>
+</html>
