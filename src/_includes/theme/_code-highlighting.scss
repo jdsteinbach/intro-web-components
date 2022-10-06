@@ -1,0 +1,85 @@
+$selector-groups: (
+  (
+    comment,
+    prolog,
+    doctype,
+    cdata,
+  ),
+  (
+    punctuation,
+  ),
+  (
+    property,
+    tag,
+    constant,
+    symbol,
+    deleted,
+  ),
+  (
+    number,
+  ),
+  (
+    boolean
+  ),
+  (
+    selector,
+    attr-name,
+    string,
+    char,
+    builtin,
+    inserted,
+  ),
+  (
+    operator,
+    entity,
+    url,
+    variable,
+  ),
+  (
+    atrule,
+    attr-value,
+    function,
+    class-name,
+  ),
+  (
+    keyword,
+  ),
+  (
+    regex,
+    important
+  )
+);
+
+$selector-colors: (
+  rgba(#fff, .4),
+  rgba(#fff, .8),
+  $headingColor,
+  rgba($preColor, .8),
+  #fff,
+  $preColor,
+  mix($headingColor, #fff, 75%),
+  mix($preColor, #fff, 75%),
+  rgba(#fff, .8),
+  rgba($mainColor, .8),
+);
+
+@each $category-values in $selector-groups {
+  $nth: list.index($selector-groups, $category-values);
+  $names: ();
+  @each $selector in $category-values {
+    $names: append($names, ".token.#{$selector}", comma);
+  }
+
+  #{$names} {
+    color: list.nth($selector-colors, $nth);
+  }
+}
+
+.token.bold {
+  font-weight: bold;
+}
+
+.token.comment,
+.token.italic {
+  font-style: italic;
+}

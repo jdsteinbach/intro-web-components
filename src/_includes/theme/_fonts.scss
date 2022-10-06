@@ -1,7 +1,7 @@
 @mixin v-fonts($family, $file-name, $format, $style: false, $weight: false) {
   @font-face {
     font-family: $family;
-    src: url('./fonts/#{$file-name}') format('#{$format}');
+    src: url('/webfonts/#{$file-name}') format('#{$format}');
     @if $style {
       font-style: $style;
     }
