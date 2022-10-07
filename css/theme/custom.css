@@ -5,7 +5,7 @@
  */
 @font-face {
   font-family: Recursive;
-  src: url("/webfonts/recursive.woff2") format("woff2-variations");
+  src: url("../../webfonts/recursive.woff2") format("woff2-variations");
   font-weight: 300 900;
 }
 .token.comment, .token.prolog, .token.doctype, .token.cdata {
