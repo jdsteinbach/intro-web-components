@@ -1,6 +1,5 @@
 const syntaxHighlight = require('@11ty/eleventy-plugin-syntaxhighlight');
 const markdownIt = require('markdown-it');
-// const markdownItHighlightJS = require('markdown-it-highlightjs')
 
 const mdOptions = {
   html: true,
@@ -58,9 +57,7 @@ module.exports = eleventyConfig => {
   });
 
   eleventyConfig.addPassthroughCopy({
-    './node_modules/reveal.js/css/': 'css',
-    './node_modules/reveal.js/js/': 'js',
-    './node_modules/reveal.js/plugin/': 'plugin'
+    './node_modules/reveal.js/dist/': 'reveal',
   });
   eleventyConfig.addPassthroughCopy('src/images');
   eleventyConfig.addPassthroughCopy('src/webfonts');
