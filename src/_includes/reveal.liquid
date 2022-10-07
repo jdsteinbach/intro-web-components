@@ -1,0 +1,52 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>{{ slides.title }}
+    </title>
+    <meta name="description" content="{{ slides.description }}">
+
+    <link rel="stylesheet" href="css/reset.css">
+    <link rel="stylesheet" href="css/reveal.css">
+    <link rel="stylesheet" href="css/theme/custom.css">
+
+    <!-- Printing and PDF exports -->
+    <script>
+      var link = document.createElement('link');
+      link.rel = 'stylesheet';
+      link.type = 'text/css';
+      link.href = window.location.search.match(/print-pdf/gi)
+        ? 'css/print/pdf.css'
+        : 'css/print/paper.css';
+      document.getElementsByTagName('head')[0].appendChild(link);
+    </script>
+  </head>
+  <body>
+    <div class="reveal">
+      <div class="slides">
+        {% for slide in collections.slides %}
+          {% include "_section" %}
+        {% endfor %}
+      </div>
+
+      <footer class="colophon">
+        <div class="colophon__logo">
+          <img src="{{ slides.colophonImage }}" alt="{{ slides.colophonAlt }}">
+        </div>
+
+        <a href="{{ slides.public_url }}" class="colophon__link">{{ slides.short_url }}
+        </a>
+      </footer>
+    </div>
+
+    <script src="js/reveal.js"></script>
+
+    <script>
+      Reveal.initialize({height: 600, width: 800, hash: true, transition: 'fade'});
+    </script>
+
+    <script async src="https://static.codepen.io/assets/embed/ei.js"></script>
+  </body>
+</html>
