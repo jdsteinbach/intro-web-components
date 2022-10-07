@@ -1,218 +1,265 @@
 <!doctype html>
-<html class="no-js" lang="">
+<html>
   <head>
     <meta charset="utf-8">
-    <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <title>Intro to Web Components</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>Intro to Web Components
+    </title>
     <meta name="description" content="Creating Custom Elements">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="./style.min.css">
+
+    <link rel="stylesheet" href="css/reset.css">
+    <link rel="stylesheet" href="css/reveal.css">
+    <link rel="stylesheet" href="css/theme/custom.css">
+
+    <!-- Printing and PDF exports -->
+    <script>
+      var link = document.createElement('link');
+      link.rel = 'stylesheet';
+      link.type = 'text/css';
+      link.href = window.location.search.match(/print-pdf/gi)
+        ? 'css/print/pdf.css'
+        : 'css/print/paper.css';
+      document.getElementsByTagName('head')[0].appendChild(link);
+    </script>
   </head>
   <body>
     <div class="reveal">
       <div class="slides">
-        <section data-filename="undefined"><section data-filename="0 Title"><h1 class="mb-1">Intro to Web Components</h1>
+        
+          <section >
+  <h1 class="mb-1">Intro to Web Components</h1>
 <h2>Creating Custom Elements</h2>
-</section></section><section data-filename="undefined"><section data-filename="0 Building"><h2>Building Web Components</h2>
-</section><section data-filename="10 Libraries"><h3>Build Tools</h3>
+
+</section>
+
+        
+          <section >
+  <h2>Building Web Components</h2>
+
+</section>
+
+        
+          <section >
+  <h3>Build Tools</h3>
 <p><a href="https://stenciljs.com/">Stencil.js</a></p>
 <p><a href="https://lit-element.polymer-project.org/">LitElement</a></p>
-</section><section data-filename="20 Stencil"><h3>Installing Stencil</h3>
-<pre><code class="language-sh">npm install @stencil/core
-</code></pre>
-</section><section data-filename="30 Stencil Init"><h3>Stencil Init</h3>
-<pre><code class="language-sh">npm init stencil
-</code></pre>
-</section></section><section data-filename="undefined"><section data-filename="0 Decorators"><h2>Stencil Decorators</h2>
-</section><section data-filename="20 Props"><h3><code>@Prop()</code></h3>
-</section><section data-filename="30 Props Demo"><pre><code class="language-js">import { Component, h, Prop } from '@stencil/core';
 
-@Component({
-  tag: 'say-hello'
-})
-export class SayHello {
-  @Prop() name: string;
+</section>
 
-  render() {
-    return &lt;p&gt;Hello, World! I'm {this.name}.&lt;/p&gt;;
-  }
-}
-</code></pre>
-</section><section data-filename="40 Props Demo 2"><pre><code class="language-html">&lt;say-hello name=&quot;Carla&quot;&gt;&lt;/say-hello&gt;
-</code></pre>
-<pre><code class="language-html">&lt;say-hello name=&quot;Carla&quot;&gt;
-  &lt;p&gt;Hello, World! I'm Carla.&lt;/p&gt;
-&lt;/say-hello&gt;
-</code></pre>
-</section><section data-filename="50 State"><h3><code>@State()</code></h3>
-</section><section data-filename="60 State Demo"><pre><code class="language-js">import { Component, h, State } from '@stencil/core';
+        
+          <section >
+  <h3>Installing Stencil</h3>
+<pre class="language-sh"><code class="language-sh"><span class="token function">npm</span> <span class="token function">install</span> @stencil/core</code></pre>
 
-@Component({
-  tag: 'click-counter'
-})
-export class ClickCounter {
-  //...
-</code></pre>
-</section><section data-filename="70 State Demo 2"><pre><code class="language-js">  //...
-  @State() count = 0;
+</section>
 
-  private incrementCount() {
-    this.count++;
-  }
-  //...
-</code></pre>
-</section><section data-filename="80 State Demo 3"><pre><code class="language-js">  //...
-  render() {
-    return (
-      &lt;div&gt;
-        &lt;p&gt;{this.count}&lt;/p&gt;
-        &lt;button
-          type=&quot;button&quot;
-          onClick={() =&gt; this.incrementCount()}
-        &gt;Plus 1&lt;/button&gt;
-      &lt;/div&gt;
-    );
-  }
-}
-</code></pre>
-</section><section data-filename="90 Watch"><h3><code>@Watch()</code></h3>
-</section><section data-filename="100 Watch Demo"><pre><code class="language-js">import { Component, h, Prop, Watch } from '@stencil/core';
+        
+          <section >
+  <h3>Stencil Init</h3>
+<pre class="language-sh"><code class="language-sh"><span class="token function">npm</span> init stencil</code></pre>
 
-@Component({
-  tag: 'say-hello'
-})
-export class SayHello {
-  @Prop() name: string;
+</section>
 
-  @Watch('name')
-  updateName(newValue, oldValue) {
-    // Fire name-related event, perhaps...
-  }
-  //...
-</code></pre>
-</section><section data-filename="110 Watch Demo 2"><pre><code class="language-js">  //...
-  render() {
-    return &lt;p&gt;Hello, World! I'm {this.name}.&lt;/p&gt;;
-  }
-}
-</code></pre>
-</section><section data-filename="120 Events"><h3><code>@Event()</code><br><code>@Listen()</code></h3>
-</section><section data-filename="130 Events Demo"><pre><code class="language-js">import { Component, Event, EventEmitter, h } from '@stencil/core';
+        
+          <section >
+  <h2>Stencil Decorators</h2>
 
-@Component({
-  tag: 'modal-trigger'
-})
-export class ModalTrigger {
-  // ..
-</code></pre>
-</section><section data-filename="140 Events Demo 2"><pre><code class="language-js">  //...
-  @Event() openModal!: EventEmitter;
+</section>
 
-  private triggerClick() {
-    this.openModal.emit();
-  }
-  //...
-</code></pre>
-</section><section data-filename="150 Events Demo 3"><pre><code class="language-js">  //...
-  render() {
-    return (
-      &lt;button onClick={() =&gt; this.triggerClick()}&gt;
-        &lt;slot /&gt;
-      &lt;/button&gt;
-    );
-  }
-}
-</code></pre>
-</section><section data-filename="160 Events Demo 4"><pre><code class="language-js">import { Component, h, Listen, State } from '@stencil/core';
+        
+          <section >
+  <h3><code>@Prop()</code></h3>
 
-@Component({
-  tag: 'modal-window'
-})
-export class ModalWindow {
-  // ..
-</code></pre>
-</section><section data-filename="170 Events Demo 5"><pre><code class="language-js">  //...
-  @State() isOpen = false;
+</section>
 
-  @Listen('openModal')
-  openModalWindow() {
-    this.isOpen = true;
-  }
-  //...
-</code></pre>
-</section><section data-filename="180 Events Demo 6"><pre><code class="language-js">  //...
-  render() {
-    const modalClasses = {
-      modal: true,
-      'modal--open': this.isOpen
-    };
+        
+          <section >
+  <pre class="language-js"><code class="language-js"><span class="token keyword">import</span> <span class="token punctuation">{</span> Component<span class="token punctuation">,</span> h<span class="token punctuation">,</span> Prop <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'@stencil/core'</span><span class="token punctuation">;</span><br><br>@<span class="token function">Component</span><span class="token punctuation">(</span><span class="token punctuation">{</span><br>  <span class="token literal-property property">tag</span><span class="token operator">:</span> <span class="token string">'say-hello'</span><br><span class="token punctuation">}</span><span class="token punctuation">)</span><br><span class="token keyword">export</span> <span class="token keyword">class</span> <span class="token class-name">SayHello</span> <span class="token punctuation">{</span><br>  @<span class="token function">Prop</span><span class="token punctuation">(</span><span class="token punctuation">)</span> name<span class="token operator">:</span> string<span class="token punctuation">;</span><br><br>  <span class="token function">render</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span><br>    <span class="token keyword">return</span> <span class="token operator">&lt;</span>p<span class="token operator">></span>Hello<span class="token punctuation">,</span> World<span class="token operator">!</span> <span class="token constant">I</span>'m <span class="token punctuation">{</span><span class="token keyword">this</span><span class="token punctuation">.</span>name<span class="token punctuation">}</span><span class="token punctuation">.</span><span class="token operator">&lt;</span><span class="token operator">/</span>p<span class="token operator">></span><span class="token punctuation">;</span><br>  <span class="token punctuation">}</span><br><span class="token punctuation">}</span></code></pre>
 
-    return (
-      &lt;section class={modalClasses}&gt;
-        &lt;slot /&gt;
-      &lt;/section&gt;
-    );
-  }
-}
-</code></pre>
-</section><section data-filename="190 Events Demo 7"><pre><code class="language-html">&lt;modal-trigger&gt;
-  Log In
-&lt;/modal-trigger&gt;
+</section>
 
-&lt;modal-window&gt;
-  &lt;form&gt;&lt;/form&gt;
-&lt;/modal-window&gt;
-</code></pre>
-</section></section><section data-filename="undefined"><section data-filename="0 Lifecycle Hooks"><h2>Component Lifecycle Hooks</h2>
-</section><section data-filename="10 Hooks"><p><code>connectedCallback()</code></p>
-<p><em>Every time it’s con­nected to <span class="small-caps">DOM</span>, be­fore <code>componentWillLoad()</code></em></p>
+        
+          <section >
+  <pre class="language-html"><code class="language-html"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>say-hello</span> <span class="token attr-name">name</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>Carla<span class="token punctuation">"</span></span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>say-hello</span><span class="token punctuation">></span></span></code></pre>
+<pre class="language-html"><code class="language-html"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>say-hello</span> <span class="token attr-name">name</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>Carla<span class="token punctuation">"</span></span><span class="token punctuation">></span></span><br>  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>p</span><span class="token punctuation">></span></span>Hello, World! I'm Carla.<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>p</span><span class="token punctuation">></span></span><br><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>say-hello</span><span class="token punctuation">></span></span></code></pre>
+
+</section>
+
+        
+          <section >
+  <h3><code>@State()</code></h3>
+
+</section>
+
+        
+          <section >
+  <pre class="language-js"><code class="language-js"><span class="token keyword">import</span> <span class="token punctuation">{</span> Component<span class="token punctuation">,</span> h<span class="token punctuation">,</span> State <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'@stencil/core'</span><span class="token punctuation">;</span><br><br>@<span class="token function">Component</span><span class="token punctuation">(</span><span class="token punctuation">{</span><br>  <span class="token literal-property property">tag</span><span class="token operator">:</span> <span class="token string">'click-counter'</span><br><span class="token punctuation">}</span><span class="token punctuation">)</span><br><span class="token keyword">export</span> <span class="token keyword">class</span> <span class="token class-name">ClickCounter</span> <span class="token punctuation">{</span><br>  <span class="token comment">//...</span></code></pre>
+
+</section>
+
+        
+          <section >
+  <pre class="language-js"><code class="language-js">  <span class="token comment">//...</span><br>  @<span class="token function">State</span><span class="token punctuation">(</span><span class="token punctuation">)</span> count <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span><br><br>  <span class="token keyword">private</span> <span class="token function">incrementCount</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span><br>    <span class="token keyword">this</span><span class="token punctuation">.</span>count<span class="token operator">++</span><span class="token punctuation">;</span><br>  <span class="token punctuation">}</span><br>  <span class="token comment">//...</span></code></pre>
+
+</section>
+
+        
+          <section >
+  <pre class="language-js"><code class="language-js">  <span class="token comment">//...</span><br>  <span class="token function">render</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span><br>    <span class="token keyword">return</span> <span class="token punctuation">(</span><br>      <span class="token operator">&lt;</span>div<span class="token operator">></span><br>        <span class="token operator">&lt;</span>p<span class="token operator">></span><span class="token punctuation">{</span><span class="token keyword">this</span><span class="token punctuation">.</span>count<span class="token punctuation">}</span><span class="token operator">&lt;</span><span class="token operator">/</span>p<span class="token operator">></span><br>        <span class="token operator">&lt;</span>button<br>          type<span class="token operator">=</span><span class="token string">"button"</span><br>          onClick<span class="token operator">=</span><span class="token punctuation">{</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">incrementCount</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">}</span><br>        <span class="token operator">></span>Plus <span class="token number">1</span><span class="token operator">&lt;</span><span class="token operator">/</span>button<span class="token operator">></span><br>      <span class="token operator">&lt;</span><span class="token operator">/</span>div<span class="token operator">></span><br>    <span class="token punctuation">)</span><span class="token punctuation">;</span><br>  <span class="token punctuation">}</span><br><span class="token punctuation">}</span></code></pre>
+
+</section>
+
+        
+          <section >
+  <h3><code>@Watch()</code></h3>
+
+</section>
+
+        
+          <section >
+  <pre class="language-js"><code class="language-js"><span class="token keyword">import</span> <span class="token punctuation">{</span> Component<span class="token punctuation">,</span> h<span class="token punctuation">,</span> Prop<span class="token punctuation">,</span> Watch <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'@stencil/core'</span><span class="token punctuation">;</span><br><br>@<span class="token function">Component</span><span class="token punctuation">(</span><span class="token punctuation">{</span><br>  <span class="token literal-property property">tag</span><span class="token operator">:</span> <span class="token string">'say-hello'</span><br><span class="token punctuation">}</span><span class="token punctuation">)</span><br><span class="token keyword">export</span> <span class="token keyword">class</span> <span class="token class-name">SayHello</span> <span class="token punctuation">{</span><br>  @<span class="token function">Prop</span><span class="token punctuation">(</span><span class="token punctuation">)</span> name<span class="token operator">:</span> string<span class="token punctuation">;</span><br><br>  @<span class="token function">Watch</span><span class="token punctuation">(</span><span class="token string">'name'</span><span class="token punctuation">)</span><br>  <span class="token function">updateName</span><span class="token punctuation">(</span><span class="token parameter">newValue<span class="token punctuation">,</span> oldValue</span><span class="token punctuation">)</span> <span class="token punctuation">{</span><br>    <span class="token comment">// Fire name-related event, perhaps...</span><br>  <span class="token punctuation">}</span><br>  <span class="token comment">//...</span></code></pre>
+
+</section>
+
+        
+          <section >
+  <pre class="language-js"><code class="language-js">  <span class="token comment">//...</span><br>  <span class="token function">render</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span><br>    <span class="token keyword">return</span> <span class="token operator">&lt;</span>p<span class="token operator">></span>Hello<span class="token punctuation">,</span> World<span class="token operator">!</span> <span class="token constant">I</span>'m <span class="token punctuation">{</span><span class="token keyword">this</span><span class="token punctuation">.</span>name<span class="token punctuation">}</span><span class="token punctuation">.</span><span class="token operator">&lt;</span><span class="token operator">/</span>p<span class="token operator">></span><span class="token punctuation">;</span><br>  <span class="token punctuation">}</span><br><span class="token punctuation">}</span></code></pre>
+
+</section>
+
+        
+          <section >
+  <h3><code>@Event()</code><br><code>@Listen()</code></h3>
+
+</section>
+
+        
+          <section >
+  <pre class="language-js"><code class="language-js"><span class="token keyword">import</span> <span class="token punctuation">{</span> Component<span class="token punctuation">,</span> Event<span class="token punctuation">,</span> EventEmitter<span class="token punctuation">,</span> h <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'@stencil/core'</span><span class="token punctuation">;</span><br><br>@<span class="token function">Component</span><span class="token punctuation">(</span><span class="token punctuation">{</span><br>  <span class="token literal-property property">tag</span><span class="token operator">:</span> <span class="token string">'modal-trigger'</span><br><span class="token punctuation">}</span><span class="token punctuation">)</span><br><span class="token keyword">export</span> <span class="token keyword">class</span> <span class="token class-name">ModalTrigger</span> <span class="token punctuation">{</span><br>  <span class="token comment">// ..</span></code></pre>
+
+</section>
+
+        
+          <section >
+  <pre class="language-js"><code class="language-js">  <span class="token comment">//...</span><br>  @<span class="token function">Event</span><span class="token punctuation">(</span><span class="token punctuation">)</span> openModal<span class="token operator">!</span><span class="token operator">:</span> EventEmitter<span class="token punctuation">;</span><br><br>  <span class="token keyword">private</span> <span class="token function">triggerClick</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span><br>    <span class="token keyword">this</span><span class="token punctuation">.</span>openModal<span class="token punctuation">.</span><span class="token function">emit</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span><br>  <span class="token punctuation">}</span><br>  <span class="token comment">//...</span></code></pre>
+
+</section>
+
+        
+          <section >
+  <pre class="language-js"><code class="language-js">  <span class="token comment">//...</span><br>  <span class="token function">render</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span><br>    <span class="token keyword">return</span> <span class="token punctuation">(</span><br>      <span class="token operator">&lt;</span>button onClick<span class="token operator">=</span><span class="token punctuation">{</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">triggerClick</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">}</span><span class="token operator">></span><br>        <span class="token operator">&lt;</span>slot <span class="token operator">/</span><span class="token operator">></span><br>      <span class="token operator">&lt;</span><span class="token operator">/</span>button<span class="token operator">></span><br>    <span class="token punctuation">)</span><span class="token punctuation">;</span><br>  <span class="token punctuation">}</span><br><span class="token punctuation">}</span></code></pre>
+
+</section>
+
+        
+          <section >
+  <pre class="language-js"><code class="language-js"><span class="token keyword">import</span> <span class="token punctuation">{</span> Component<span class="token punctuation">,</span> h<span class="token punctuation">,</span> Listen<span class="token punctuation">,</span> State <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'@stencil/core'</span><span class="token punctuation">;</span><br><br>@<span class="token function">Component</span><span class="token punctuation">(</span><span class="token punctuation">{</span><br>  <span class="token literal-property property">tag</span><span class="token operator">:</span> <span class="token string">'modal-window'</span><br><span class="token punctuation">}</span><span class="token punctuation">)</span><br><span class="token keyword">export</span> <span class="token keyword">class</span> <span class="token class-name">ModalWindow</span> <span class="token punctuation">{</span><br>  <span class="token comment">// ..</span></code></pre>
+
+</section>
+
+        
+          <section >
+  <pre class="language-js"><code class="language-js">  <span class="token comment">//...</span><br>  @<span class="token function">State</span><span class="token punctuation">(</span><span class="token punctuation">)</span> isOpen <span class="token operator">=</span> <span class="token boolean">false</span><span class="token punctuation">;</span><br><br>  @<span class="token function">Listen</span><span class="token punctuation">(</span><span class="token string">'openModal'</span><span class="token punctuation">)</span><br>  <span class="token function">openModalWindow</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span><br>    <span class="token keyword">this</span><span class="token punctuation">.</span>isOpen <span class="token operator">=</span> <span class="token boolean">true</span><span class="token punctuation">;</span><br>  <span class="token punctuation">}</span><br>  <span class="token comment">//...</span></code></pre>
+
+</section>
+
+        
+          <section >
+  <pre class="language-js"><code class="language-js">  <span class="token comment">//...</span><br>  <span class="token function">render</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span><br>    <span class="token keyword">const</span> modalClasses <span class="token operator">=</span> <span class="token punctuation">{</span><br>      <span class="token literal-property property">modal</span><span class="token operator">:</span> <span class="token boolean">true</span><span class="token punctuation">,</span><br>      <span class="token string-property property">'modal--open'</span><span class="token operator">:</span> <span class="token keyword">this</span><span class="token punctuation">.</span>isOpen<br>    <span class="token punctuation">}</span><span class="token punctuation">;</span><br><br>    <span class="token keyword">return</span> <span class="token punctuation">(</span><br>      <span class="token operator">&lt;</span>section <span class="token keyword">class</span><span class="token operator">=</span><span class="token punctuation">{</span>modalClasses<span class="token punctuation">}</span><span class="token operator">></span><br>        <span class="token operator">&lt;</span>slot <span class="token operator">/</span><span class="token operator">></span><br>      <span class="token operator">&lt;</span><span class="token operator">/</span>section<span class="token operator">></span><br>    <span class="token punctuation">)</span><span class="token punctuation">;</span><br>  <span class="token punctuation">}</span><br><span class="token punctuation">}</span></code></pre>
+
+</section>
+
+        
+          <section >
+  <pre class="language-html"><code class="language-html"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>modal-trigger</span><span class="token punctuation">></span></span><br>  Log In<br><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>modal-trigger</span><span class="token punctuation">></span></span><br><br><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>modal-window</span><span class="token punctuation">></span></span><br>  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>form</span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>form</span><span class="token punctuation">></span></span><br><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>modal-window</span><span class="token punctuation">></span></span></code></pre>
+
+</section>
+
+        
+          <section >
+  <h2>Component Lifecycle Hooks</h2>
+
+</section>
+
+        
+          <section >
+  <p><code>connectedCallback()</code></p>
+<p><em>Every time it’s connected to DOM, before <code>componentWillLoad()</code></em></p>
 <p><code>disconnectedCallback()</code></p>
-<p><em>Every time it’s dis­con­nected from <span class="small-caps">DOM</span></em></p>
-</section><section data-filename="20 Hooks 2"><p><code>componentWillLoad()</code></p>
-<p><em>Runs 1x af­ter com­po­nent 1st con­nects to <span class="small-caps">DOM</span></em></p>
+<p><em>Every time it’s disconnected from DOM</em></p>
+
+</section>
+
+        
+          <section >
+  <p><code>componentWillLoad()</code></p>
+<p><em>Runs 1x after component 1st connects to DOM</em></p>
 <p><code>componentDidLoad()</code></p>
-<p><em>Called once af­ter fully loaded &amp; 1st <code>render()</code></em></p>
-</section><section data-filename="30 Hooks 3"><p><code>componentWillRender()</code></p>
+<p><em>Called once after fully loaded &amp; 1st <code>render()</code></em></p>
+
+</section>
+
+        
+          <section >
+  <p><code>componentWillRender()</code></p>
 <p><em>Before every <code>render()</code></em></p>
 <p><code>componentDidRender()</code></p>
 <p><em>After every <code>render()</code></em></p>
-</section><section data-filename="40 Hooks 4"><p><code>componentWillUpdate()</code></p>
+
+</section>
+
+        
+          <section >
+  <p><code>componentWillUpdate()</code></p>
 <p><em>When <code>@Prop()</code> or <code>@State()</code> change (not 1st <code>render()</code>)</em></p>
 <p><code>componentDidUpdate()</code></p>
-<p><em>After up­date <code>render()</code> (but not 1st <code>render()</code>)</em></p>
-</section></section><section data-filename="undefined"><section data-filename="0 Styling"><h2>Styling Web Components</h2>
-</section><section data-filename="10 Shadow DOM"><h3>Shadow <span class="small-caps">DOM</span></h3>
+<p><em>After update <code>render()</code> (but not 1st <code>render()</code>)</em></p>
+
+</section>
+
+        
+          <section >
+  <h2>Styling Web Components</h2>
+
+</section>
+
+        
+          <section >
+  <h3>Shadow DOM</h3>
 <p>Completely scoped styles:</p>
 <p><em>Outer styles can’t leak in;</em><br>
-<em>in­ner styles can’t leak out.</em></p>
-</section><section data-filename="20.Shadow Selectors"><h3>Shadow <span class="small-caps">DOM</span> Selectors</h3>
+<em>inner styles can’t leak out.</em></p>
+
+</section>
+
+        
+          <section >
+  <h3>Shadow DOM Selectors</h3>
 <ul>
-<li class="fragment"><code>:host</code>, <code>:host()</code></li>
-<li class="fragment"><code>:host-context()</code></li>
-<li class="fragment"><code>::slotted()</code></li>
-<li class="fragment"><code>::part()</code> *</li>
+<li><code>:host</code>, <code>:host()</code></li>
+<li><code>:host-context()</code></li>
+<li><code>::slotted()</code></li>
+<li><code>::part()</code> *</li>
 </ul>
-</section><section data-filename="30 Host"><pre><code class="language-css">:host {
-  display: block;
-}
 
-:host(.is-blue) {
-  color: blue;
-}
+</section>
 
-:host([aria-hidden=&quot;true&quot;]) {
-  opacity: 0;
-}
-</code></pre>
-</section><section data-filename="40 Host Context"><pre><code class="language-css">:host-context(article) {
-  width: 50%;
-}
+        
+          <section >
+  <pre class="language-css"><code class="language-css"><span class="token selector">:host</span> <span class="token punctuation">{</span><br>  <span class="token property">display</span><span class="token punctuation">:</span> block<span class="token punctuation">;</span><br><span class="token punctuation">}</span><br><br><span class="token selector">:host(.is-blue)</span> <span class="token punctuation">{</span><br>  <span class="token property">color</span><span class="token punctuation">:</span> blue<span class="token punctuation">;</span><br><span class="token punctuation">}</span><br><br><span class="token selector">:host([aria-hidden="true"])</span> <span class="token punctuation">{</span><br>  <span class="token property">opacity</span><span class="token punctuation">:</span> 0<span class="token punctuation">;</span><br><span class="token punctuation">}</span></code></pre>
 
-:host-context(aside) {
-  width: 100%;
-}
-</code></pre>
-</section><section data-filename="50 Slotted"><pre><code>::slotted(svg) {
+</section>
+
+        
+          <section >
+  <pre class="language-css"><code class="language-css"><span class="token selector">:host-context(article)</span> <span class="token punctuation">{</span><br>  <span class="token property">width</span><span class="token punctuation">:</span> 50%<span class="token punctuation">;</span><br><span class="token punctuation">}</span><br><br><span class="token selector">:host-context(aside)</span> <span class="token punctuation">{</span><br>  <span class="token property">width</span><span class="token punctuation">:</span> 100%<span class="token punctuation">;</span><br><span class="token punctuation">}</span></code></pre>
+
+</section>
+
+        
+          <section >
+  <pre><code>::slotted(svg) {
   margin-right: 8px;
   width: 22px;
 }
@@ -221,66 +268,91 @@ export class ModalWindow {
   fill: var(--button-fg, #FFF);
 }
 </code></pre>
-</section><section data-filename="60 Part"><pre><code class="language-jsx">render() {
-  return (&lt;div&gt;
-    &lt;button part=&quot;trigger&quot;&gt;Click Me&lt;/button&gt;
-  &lt;/div&gt;);
-}
-</code></pre>
-<pre><code class="language-css">/* Outer CSS allowed through the Shadow DOM */
-custom-element::part(trigger) {
-  color: dodgerblue;
-}
-</code></pre>
-<p><em>* Implemented in Firefox/Chrome, not in Spec</em></p>
-</section><section data-filename="70 Custom Props"><h3>Custom Props</h3>
-<p><span class="small-caps">CSS</span> Custom Properties are the only things al­lowed to af­fect Shadow DOM elements.</p>
-</section><section data-filename="80 Props Demo"><pre><code class="language-jsx">export class CustomButton {
-  render() {
-    return (
-      &lt;button class=&quot;button&quot;&gt;
-        &lt;slot /&gt;
-      &lt;/button&gt;
-    );
-  }
-}
-</code></pre>
-</section><section data-filename="90 Props Demo 2"><pre><code class="language-css">/* Attached to Shadow DOM */
-.button {
-  color: var(--button-fg, #FFF);
-  background: var(--button-bg, #1976D2);
-}
 
-.button:hover {
-  color: var(--button-fg-active, #FFF);
-  background: var(--button-bg-active, #1565C0);
-}
-</code></pre>
-</section><section data-filename="100 Props Demo 3"><pre><code class="language-css">/* Outer CSS: inherited by Shadow DOM */
-.button-container--red {
-  --button-bg: #D32F2F;
-  --button-bg-active: #B71C1C;
-}
-</code></pre>
-</section></section><section data-filename="undefined"><section data-filename="0 Deploying"><h2>Deploying Web Components</h2>
-</section><section data-filename="10 Plain Deploy"><h3><code>npm run build</code></h3>
+</section>
+
+        
+          <section >
+  <pre class="language-jsx"><code class="language-jsx"><span class="token function">render</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span><br>  <span class="token keyword">return</span> <span class="token punctuation">(</span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span><span class="token punctuation">></span></span><span class="token plain-text"><br>    </span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>button</span> <span class="token attr-name">part</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>trigger<span class="token punctuation">"</span></span><span class="token punctuation">></span></span><span class="token plain-text">Click Me</span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>button</span><span class="token punctuation">></span></span><span class="token plain-text"><br>  </span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">></span></span><span class="token punctuation">)</span><span class="token punctuation">;</span><br><span class="token punctuation">}</span></code></pre>
+<pre class="language-css"><code class="language-css"><span class="token comment">/* Outer CSS allowed through the Shadow DOM */</span><br><span class="token selector">custom-element::part(trigger)</span> <span class="token punctuation">{</span><br>  <span class="token property">color</span><span class="token punctuation">:</span> dodgerblue<span class="token punctuation">;</span><br><span class="token punctuation">}</span></code></pre>
+<p><em>* Implemented in Firefox/Chrome, not in Spec</em></p>
+
+</section>
+
+        
+          <section >
+  <h3>Custom Props</h3>
+<p>CSS Custom Properties are the only things allowed to affect Shadow DOM elements.</p>
+
+</section>
+
+        
+          <section >
+  <pre class="language-jsx"><code class="language-jsx"><span class="token keyword">export</span> <span class="token keyword">class</span> <span class="token class-name">CustomButton</span> <span class="token punctuation">{</span><br>  <span class="token function">render</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span><br>    <span class="token keyword">return</span> <span class="token punctuation">(</span><br>      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>button</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>button<span class="token punctuation">"</span></span><span class="token punctuation">></span></span><span class="token plain-text"><br>        </span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>slot</span> <span class="token punctuation">/></span></span><span class="token plain-text"><br>      </span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>button</span><span class="token punctuation">></span></span><br>    <span class="token punctuation">)</span><span class="token punctuation">;</span><br>  <span class="token punctuation">}</span><br><span class="token punctuation">}</span></code></pre>
+
+</section>
+
+        
+          <section >
+  <pre class="language-css"><code class="language-css"><span class="token comment">/* Attached to Shadow DOM */</span><br><span class="token selector">.button</span> <span class="token punctuation">{</span><br>  <span class="token property">color</span><span class="token punctuation">:</span> <span class="token function">var</span><span class="token punctuation">(</span>--button-fg<span class="token punctuation">,</span> #FFF<span class="token punctuation">)</span><span class="token punctuation">;</span><br>  <span class="token property">background</span><span class="token punctuation">:</span> <span class="token function">var</span><span class="token punctuation">(</span>--button-bg<span class="token punctuation">,</span> #1976D2<span class="token punctuation">)</span><span class="token punctuation">;</span><br><span class="token punctuation">}</span><br><br><span class="token selector">.button:hover</span> <span class="token punctuation">{</span><br>  <span class="token property">color</span><span class="token punctuation">:</span> <span class="token function">var</span><span class="token punctuation">(</span>--button-fg-active<span class="token punctuation">,</span> #FFF<span class="token punctuation">)</span><span class="token punctuation">;</span><br>  <span class="token property">background</span><span class="token punctuation">:</span> <span class="token function">var</span><span class="token punctuation">(</span>--button-bg-active<span class="token punctuation">,</span> #1565C0<span class="token punctuation">)</span><span class="token punctuation">;</span><br><span class="token punctuation">}</span></code></pre>
+
+</section>
+
+        
+          <section >
+  <pre class="language-css"><code class="language-css"><span class="token comment">/* Outer CSS: inherited by Shadow DOM */</span><br><span class="token selector">.button-container--red</span> <span class="token punctuation">{</span><br>  <span class="token property">--button-bg</span><span class="token punctuation">:</span> #D32F2F<span class="token punctuation">;</span><br>  <span class="token property">--button-bg-active</span><span class="token punctuation">:</span> #B71C1C<span class="token punctuation">;</span><br><span class="token punctuation">}</span></code></pre>
+
+</section>
+
+        
+          <section >
+  <h2>Deploying Web Components</h2>
+
+</section>
+
+        
+          <section >
+  <h3><code>npm run build</code></h3>
 <p>Get <code>/dist/*</code> onto your server <br>or into your site build process.</p>
-</section><section data-filename="20 Framework Deploy"><h3>Framework Integration</h3>
+
+</section>
+
+        
+          <section >
+  <h3>Framework Integration</h3>
 <p>Instructions in <a href="https://stenciljs.com/docs/overview">Stencil Docs</a>:</p>
 <p><a href="https://stenciljs.com/docs/angular">Angular</a> | <a href="https://stenciljs.com/docs/react">React</a> | <a href="https://stenciljs.com/docs/vue">Vue</a> | <a href="https://stenciljs.com/docs/ember">Ember</a></p>
-</section></section><section data-filename="undefined"><section data-filename="0"><h2 class>James Steinbach</h2>
-<h3 class="mb-2">Senior <span class="small-caps">UX</span> Developer<br> at <a rel="noreferrer noopener nofollow" target="_blank" href="https://dockyard.com/blog/authors/james-steinbach">DockYard</a><svg viewbox="0 0 1023 1024" class="logo--dockyard" fill="#fff"><path d="M511.413 0c-282.422 0-511.413 228.991-511.413 512 0 282.422 228.991 511.413 511.413 511.413s511.413-228.991 511.413-511.413c0.587-283.009-228.404-512-511.413-512zM808.514 202.569c0 1.761-1.761 4.697-5.284 8.807-9.394 10.569-110.972 123.89-148.55 162.642 16.44 42.275 16.44 115.083 10.569 185.541-8.22 99.229-21.138 139.156-75.156 169.688s-201.982 34.642-275.963 16.44c-73.982-18.202-83.376-92.183-90.422-95.119-28.771-12.33-25.248-58.128-25.248-58.128 20.55-1.174 40.514 24.073 40.514 24.073 8.22-12.917 32.294-25.248 32.294-25.248 11.156 39.339-12.33 52.844-9.982 58.128 5.872 14.679 37.578 49.908 87.486 24.073 49.908-25.248 51.67-94.532 54.606-179.67s25.248-153.248 98.642-169.688c56.367-12.33 96.881 1.761 115.083 10.569 50.495-36.991 165.578-119.193 175.56-126.239 4.697-2.936 8.22-5.284 10.569-6.459h5.284c0 0 0 0 0 0.587v0z"/><path d="M473.835 577.174c-16.44 22.899-21.138 44.037-31.706 69.284-8.807 19.963-23.486 29.358-34.642 45.798-9.394 14.092 20.55 18.789 28.771 19.376 21.725.587 45.798-10.569 58.716-27.596 17.615-24.073 19.376-46.972 31.706-72.22 6.459-13.505 26.422-39.339 27.596-51.67 2.936-23.486-56.367-16.44-80.44 17.028zM532.55 392.807c-11.743 4.11-18.202 16.44-14.092 28.183 3.523 11.743 16.44 18.202 27.596 14.092 11.743-4.11 18.202-16.44 14.092-28.183-3.523-11.156-16.44-17.615-27.596-14.092z"/></svg></h3>
-<h2 class><code>jdsteinbach</code></h2>
-<h3><a rel="noreferrer noopener nofollow" target="_blank" href="https://twitter.com">Twitter</a> | <a rel="noreferrer noopener nofollow" target="_blank" href="https://github.com/jdsteinbach">Github</a> | <a href="https://jdsteinbach.com">Blog</a></h3>
-</section></section>
+
+</section>
+
+        
+          <section >
+  <h2 class="">James Steinbach</h2>
+<h3 class="mb-2">Staff Front-End Engineer at <a rel="noreferrer noopener nofollow" target="_blank" href="https://okta.com/">Okta</a></h3>
+<h2 class=""><code>jdsteinbach</code></h2>
+<h3><a rel="noreferrer noopener nofollow" target="_blank" href="https://twitter.com/jdsteinbach">Twitter</a> | <a rel="noreferrer noopener nofollow" target="_blank" href="https://github.com/jdsteinbach">Github</a> | <a href="https://jdsteinbach.com">Blog</a></h3>
+
+</section>
+
+        
       </div>
 
-      <div class="colophon">
-        <img src="./images/frfe.svg" alt="Front Range Front-End" class="colophon__logo">
-        <a class="colophon__link" href="https://jdsteinbach.com/intro-web-components">jds.li/components</a>
-      </div>
+      <footer class="colophon">
+        <div class="colophon__logo">
+          <img src="/images/frfe.svg" alt="Front Range Front-End">
+        </div>
+
+        <a href="https://jdsteinbach.com/intro-web-components" class="colophon__link">jds.li/components
+        </a>
+      </footer>
     </div>
 
-    <script type="text/javascript" src="./index.min.js"></script>
+    <script src="js/reveal.js"></script>
+
+    <script>
+      Reveal.initialize({height: 600, width: 800, hash: true, transition: 'fade'});
+    </script>
+
+    <script async src="https://static.codepen.io/assets/embed/ei.js"></script>
   </body>
 </html>
