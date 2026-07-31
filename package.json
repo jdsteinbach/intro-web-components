@@ -33,7 +33,7 @@
     "autoprefixer": "^10.4.12",
     "cssnano": "^5.1.13",
     "markdown-it": "^13.0.1",
-    "postcss": "^8.4.17",
+    "postcss": "^8.5.25",
     "sass": "^1.55.0"
   },
   "dependencies": {
